@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Message Board</title>
+</head>
+<body>
+	<form action="/message" method="POST">
+		<label>Name: <br><input type="text" name="name"><br></label>
+		<label>Message: <br><textarea name="message"></textarea><br></label>
+		<button>Post a message!</button>
+	</form>
+	<% for (message in messages) { %>
+		<p>Name: <%= messages[message].name %></p>
+		<p>Message: <%= messages[message].message %></p>
+		<% for (comment in messages[message].comments) { %>
+			<p style="margin-left: 20px">Name: <%= messages[message].comments[comment].name %></p>
+			<p style="margin-left: 20px">Comment: <%= messages[message].comments[comment].comment %></p>
+		<% } %>
+		<form style="margin-left: 20px" action="/comment/<%= messages[message]._id %>" method="POST">
+			<label>Name: <br><input type="text" name="name"><br></label>
+			<label>Comment: <br><textarea name="comment"></textarea><br></label>
+			<button>Post a comment!</button>
+		</form>
+	<% } %>
+
+</body>
+</html>
